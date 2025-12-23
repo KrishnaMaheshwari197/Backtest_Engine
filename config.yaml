@@ -1,0 +1,53 @@
+# ============================================================================
+# OUTPUT & SAVING CONFIGURATION
+# ============================================================================
+output:
+  save_trade_sheets: true         # Save day-wise CSV trade sheets
+  save_combined_trades: true      # Save combined all_trades.csv
+  save_day_summary: true          # Save day_wise_summary.csv
+  
+  # Plot generation controls
+  plots:
+    save_daily_price_charts: true   # Save individual day price charts with signals
+    save_pnl_curve: true            # Save PnL and equity curve plot
+
+# ============================================================================
+# ENGINE PARAMETERS
+# ============================================================================
+engine:
+  inventory_limit: 50       # Maximum position size available at one time
+  trade_limit: 100           # Threshold above which shares go to buffer and signals are blocked
+  transaction_cost: 0.0002   # Transaction cost per share per trade
+  cooldown_period : 15       # Cooldown period (in ticks) after a trade is executed
+  initial_equity: 100000   # Initial equity for the backtest
+  verbose_snapshots: True    # Print detailed info during portfolio snapshots
+  snapshot_interval: 600     # Interval (in seconds) for portfolio snapshots
+  # AIMD (Additive Increase Multiplicative Decrease) parameters
+  aimd:
+    initial_ask: 10          # Initial ask size for each strategy
+    reward_add: 33           # Amount to add on profitable trade (Additive Increase)
+    penalty_mult: 0.666      # Multiplier on losing trade (Multiplicative Decrease)
+
+# ============================================================================
+# STRATEGY CONFIGURATION
+# ============================================================================
+strategies:
+  - name: "Strategy_C"
+    tp: 0.4                    # Take profit (absolute price difference)
+    sl: 1.0                    # Stop loss (absolute price difference)
+  
+  - name: "Strategy_B"
+    tp: 0.6                    # Take profit (absolute price difference)
+    sl: 0.8                    # Stop loss (absolute price difference)
+  
+  - name: "Strategy_A"
+    tp: 0.5                    # Take profit (absolute price difference)
+    sl: 1.2                    # Stop loss (absolute price difference)
+
+# ============================================================================
+# DATA CONFIGURATION
+# ============================================================================
+data:
+  directory: "data/EBY"      # Directory containing day CSV files
+  file_range:                # List of [start, end] day ranges to process
+    - [51, 56]
